@@ -1,0 +1,236 @@
+
+  Widget issueDialog() {
+    log('@@ ${issueList}');
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        // return ListView.builder(
+        //   itemCount: issueList.length,
+        //   itemBuilder: (context, index) {
+        return CarouselSlider(
+          items: issueList
+              .map(
+                (item) =>
+                    // Container(
+                    //   height: 200,
+                    //   width: MediaQuery.of(context).size.width - 90,
+                    //   child:
+                    Column(
+                  children: [
+                    Container(
+                      // height: 200,
+                      margin: EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, bottom: 15),
+                      // color: Colors.white,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, top: 10),
+                              child: Text(
+                                "CS12345678",
+                                style: TextStyle(
+                                    color: blackColor,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 0, left: 3),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    "Issue no",
+                                    style: TextStyle(
+                                        color: lightBlackColor,
+                                        fontFamily: "Poppins-Regular"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      item['id'].toString(),
+                                      style: TextStyle(
+                                          color: blackColor,
+                                          fontFamily: "Poppins-Regular"),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, left: 3),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    item[''] ?? '',
+                                    style: TextStyle(
+                                        color: blackColor,
+                                        fontFamily: "Poppins-Regular",
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 0, left: 3),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Details",
+                                    style: TextStyle(
+                                        color: lightBlackColor,
+                                        fontFamily: "Poppins-Regular"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, left: 3),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    item['issue_details'],
+                                    style: TextStyle(
+                                        color: blackColor,
+                                        fontFamily: "Poppins-Regular",
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                log("choose photot");
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 10, left: 3),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Photo Proof",
+                                      style: TextStyle(
+                                          color: lightBlackColor,
+                                          fontFamily: "Poppins-Regular",
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              // decoration: const BoxDecoration(color: redColor),
+                              padding: EdgeInsets.only(bottom: 10),
+                              child:
+                                  // CarouselSlider(
+                                  //   items: issueList
+                                  //       .map((item) =>
+                                  SizedBox(
+                                height: 130,
+                                width: MediaQuery.of(context).size.width * 0.70,
+                                child: Image.network(
+                                    item['new_file_name'].toString(),
+                                    fit: BoxFit.cover),
+                              ),
+                            ),
+                            // .toList(),
+                            // options: CarouselOptions(
+                            //   height: 130,
+                            //   // height: MediaQuery.of(context).size.height < 750
+                            //   //     ? MediaQuery.of(context).size.height * 0.35
+                            //   //     : MediaQuery.of(context).size.height * 0.308,
+                            //   autoPlay: false,
+                            //   //enlargeCenterPage: true,
+                            //   initialPage: _currentIndex,
+                            //   //height: MediaQuery.of(context).size.height / 4,
+                            //   viewportFraction: 1,
+                            //   //scrollDirection: Axis.vertical,
+                            //   onPageChanged: (index, reason) {
+                            //     setState(
+                            //       () {
+                            //         _currentIndex = index;
+                            //       },
+                            //     );
+                            //   },
+                            // ),
+                            // ),
+                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(0),
+                                  child: ActionButton(
+                                      "I Know",
+                                      () {},
+                                      MediaQuery.of(context).size.width * 0.25,
+                                      Colors.white,
+                                      Colors.red),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: issueList.map((urlOfItem) {
+                          int index = issueList.indexOf(urlOfItem['id']);
+                          log('@@ ${index}');
+                          return Container(
+                            width: 10.0,
+                            height: 10.0,
+                            margin: const EdgeInsets.only(
+                                left: 5, right: 5, top: 0, bottom: 0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _currentIndex == index
+                                  ? themeBlueColor
+                                  : whiteColor,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+                // ),
+              )
+              .toList(),
+          options: CarouselOptions(
+            // height: 130,
+            // height: MediaQuery.of(context).size.height < 750
+            //     ? MediaQuery.of(context).size.height * 0.35
+            //     : MediaQuery.of(context).size.height * 0.308,
+            autoPlay: false,
+            //enlargeCenterPage: true,
+            initialPage: _currentIndex,
+            //height: MediaQuery.of(context).size.height / 4,
+            viewportFraction: 1,
+            //scrollDirection: Axis.vertical,
+            onPageChanged: (index, reason) {
+              setState(
+                () {
+                  _currentIndex = index;
+                },
+              );
+            },
+          ),
+          // },
+          // scrollDirection: Axis.horizontal,
+        );
+      },
+    );
+  }

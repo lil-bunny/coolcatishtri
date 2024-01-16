@@ -1,0 +1,71 @@
+// 0 = order cancelled
+      // 1 = pickup request accept or reject
+      // 2 = accepted by delivery boy (pickup cloth pending)
+      // 3 = rejected by delivery boy
+      // 4 = accepted by helper
+      // 5 = rejected by helper (now it is to be either accepted or rejected by db)
+      // 6 = issue raised, customer acknowledgement pending
+      // 7 = (successfully picked up), issue not raised || issue accepted by customer(Known issue)
+      // 8 = issue rejected by customer
+      // 11 = Once all services are status as 'Collected' in order details section, will be shown as 'Handover to CS'
+      /** In Hand Section end */
+
+      /** In Laundry Start */
+      // 9 = Partially or A portion of order handover done to laundry service or self (other status in laundry service will be managed in category level)
+      // 10 = complete order handover done to laundry service or self (other status in laundry service will be managed in category level)
+      /** In Laundry end */
+
+      /** Delivered Start */
+      // 12 = Handover done to CS (in DB app will be shown as 'cloths received CONFIRMATION PENDING from customer')
+      // 13 = Customer confirms cloths received, 'payments pending' will be shown to the order list
+      // 14 = 'order completed' if all the payment for that order is received by customer
+=============================================================
+// 0 or null = Handover to LS not done yet
+      // 1 = Handover done to LS and waiting for LS 'confirm cloths received' (At LS app the text will be shown as 'Confirm Cloths Received') (At DB app the text will be shown as 'Cloth Received Pending by LS')
+      // 2 = Handover confirmed by LS (At LS app the text will be shown as 'Make order ready') (At DB app the text will be shown as 'Order Not ready')
+      // 3 = Order Ready Done (At LS app the text will be shown as 'Handover to DB')
+      // 4 = At LS app 'Handover to DB' done (At DB App will be shown as Accept Cloths)
+      // 5 = Once 'Accept Cloths' done in DB app (At DB App will be shown as 'Make Payment')
+      // 6 = Once 'Make Payment(or skipped payment)' done for all categories in DB app (At DB App will be shown as 'Collected') in Order table status will be changed to '11'
+
+
+/** Order Que section */
+      // 0 or null = Handover to LS not done yet
+      // 1 = Handover done to LS and waiting for LS 'confirm cloths received' (At LS app the text will be shown as 'Confirm Cloths Received') (At DB app the text will be shown as 'Cloth Received Pending by LS')
+      // 2 = Handover confirmed by LS (At LS app the text will be shown as 'Make order ready') (At DB app the text will be shown as 'Order Not ready')
+
+      /** Order issue */
+      // 7 = order have pending issues
+      // incase of all the issues are resolved the status will changed back to 2
+
+      /** Order Rejected */
+      // 8 = Order Rejected due to all raised issues rejected by CS (other status will be updated in "laundry order issue" section)
+
+      /** Order Ready Section */
+      // 3 = Order Ready Done (At LS app the text will be shown as 'Handover to DB')
+      // 4 = At LS app 'Handover to DB' done (At DB App will be shown as Accept Cloths)
+      // 5 = Once 'Accept Cloths' done in DB app (At DB App will be shown as 'Make Payment')
+
+      /** Completed Order */
+      // 6 = Once 'Make Payment(or skipped payment)' done for all categories in DB app (At DB App will be shown as 'Collected') in Order table status will be changed to '11'
+
+      
+DB to CS
+/** issue status types */
+ // 1 = issue raised
+ // 2 = known issue, resolved
+ // 3 = unknown issue, rejected by customer (return pending)
+ // 4 = Issue cloth return to customer
+ // 5 = Customer confirmed Issue cloth confirmed
+
+LS to DB to CS
+
+laundry_order_issues=[];
+
+// 1 = issue raised
+ // 2 = DB will verify and check, known issue (action will be taken by DB)(resolved, move for next step)
+ // 3 = need to consult with/escalate to CS (action will be taken by DB)
+ // 4 = Known Issue(status will be changed to 2) OR Reject by Customer
+ // 5 = Issue cloth return to customer
+ // 6 = Customer confirmed Issue cloth confirmed(Payment pending, 10 Times service rate will be paid to the customer)
+ // 7 = Payment done confirmed(2nd phase)
